@@ -6,7 +6,7 @@ from fastapi.responses import JSONResponse
 # FastAPI 앱 초기화
 app = FastAPI()
 
-# 요청과 응답 바디를 위한 Pydantic 모델 정의
+# 정보저장 입력양식
 class SaveResponsesRequest(BaseModel):
     userid: int
     gender: Literal['male', 'female']
@@ -37,10 +37,12 @@ class SaveResponsesRequest(BaseModel):
     question_24: int
     question_25: int
 
+# 정보저장 출력양식
 class SaveResponsesSuccess(BaseModel):
     status: Literal['success']
     message: str
 
+# 유저 질의 출력양식
 class RetrieveResponsesResponse(BaseModel):
     userid: int
     question_1: int
@@ -69,6 +71,7 @@ class RetrieveResponsesResponse(BaseModel):
     question_24: int
     question_25: int
 
+# 매칭 출력방식
 class RoommateMatchingResponse(BaseModel):
     user_list: Dict[int, float]
 
