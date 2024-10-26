@@ -5,13 +5,12 @@ import os
 
 def save_user_responses(request):
 
-
     # 요청 데이터에서 필요한 정보 추출
     userid = request.userid
     gender = request.gender
     room_capacity = request.room_capacity
     # 질문 응답 추출
-    response_data = {f"question_{i}": getattr(request, f"question_{i}") for i in range(1, 26)}
+    response_data = {f"question_{i}": getattr(request, f"question_{i}") for i in range(1, 25)}
 
     # FastAPI에서 경로가 올바르게 해석되는지 확인
     print("Info file path:", )

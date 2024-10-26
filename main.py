@@ -35,7 +35,6 @@ class SaveResponsesRequest(BaseModel):
     question_22: int
     question_23: int
     question_24: int
-    question_25: int
 
 # 정보저장 출력양식
 class SaveResponsesSuccess(BaseModel):
@@ -69,8 +68,6 @@ class RetrieveResponsesResponse(BaseModel):
     question_22: int
     question_23: int
     question_24: int
-    question_25: int
-
 # 매칭 출력방식
 class RoommateMatchingResponse(BaseModel):
     user_list: Dict[int, float]
