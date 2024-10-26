@@ -5,8 +5,7 @@ def get_user_responses(userid):
     # 데이터가 없을 경우 None을 반환합니다.
     # 예를 들어:
     response_data = {
-        "id": 8,
-        "user_id": 697394,
+        "userid": 697394,
         "question_1": 1,
         "question_2": 3,
         "question_3": 2,

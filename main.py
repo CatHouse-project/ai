@@ -110,7 +110,7 @@ async def save_responses(request: SaveResponsesRequest):
 async def get_responses(userid: int = Query(...)):
     try:
         # 유저 응답을 가져오는 함수가 있다고 가정
-        from services.save_responses import get_user_responses
+        from services.get_responses import get_user_responses
         response_data = get_user_responses(userid)
         if response_data is None:
             raise HTTPException(status_code=400, detail="입력한 userid를 확인해주세요.")
@@ -129,7 +129,7 @@ async def roommate_matching(userid: int = Query(...), core_questions: List[int] 
             raise HTTPException(status_code=400, detail="core_questions를 확인해주세요.")
 
         # 룸메이트 매칭을 수행하는 함수가 있다고 가정
-        from services.save_responses import roommate_matching_function
+        from services.roommate_matching import roommate_matching_function
         user_list = roommate_matching_function(userid, core_questions)
         if not user_list:
             raise HTTPException(status_code=400, detail="입력한 userid를 확인해주세요.")
