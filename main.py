@@ -6,8 +6,11 @@ from fastapi.responses import JSONResponse
 # FastAPI 앱 초기화
 app = FastAPI()
 
-# 질문 필드를 위한 Pydantic 모델 정의
-class QuestionsModel(BaseModel):
+# 요청과 응답 바디를 위한 Pydantic 모델 정의
+class SaveResponsesRequest(BaseModel):
+    userid: int
+    gender: Literal['male', 'female']
+    room_capacity: Literal[2, 3, 4]
     question_1: int
     question_2: int
     question_3: int
@@ -34,27 +37,37 @@ class QuestionsModel(BaseModel):
     question_24: int
     question_25: int
 
-    # 각 질문에 대한 유효성 검사
-    @validator('*')
-    def validate_questions(cls, v):
-        if v not in (1, 2, 3):
-            raise ValueError('각 질문의 값은 1, 2, 3 중 하나여야 합니다.')
-        return v
-
-# 요청과 응답 바디를 위한 Pydantic 모델 정의
-class SaveResponsesRequest(QuestionsModel):
-    userid: int
-    gender: Literal['male', 'female']
-    room_capacity: Literal[2, 3, 4]
-
 class SaveResponsesSuccess(BaseModel):
     status: Literal['success']
     message: str
 
-class RetrieveResponsesResponse(QuestionsModel):
+class RetrieveResponsesResponse(BaseModel):
     userid: int
-    gender: Literal['male', 'female']
-    room_capacity: Literal[2, 3, 4]
+    question_1: int
+    question_2: int
+    question_3: int
+    question_4: int
+    question_5: int
+    question_6: int
+    question_7: int
+    question_8: int
+    question_9: int
+    question_10: int
+    question_11: int
+    question_12: int
+    question_13: int
+    question_14: int
+    question_15: int
+    question_16: int
+    question_17: int
+    question_18: int
+    question_19: int
+    question_20: int
+    question_21: int
+    question_22: int
+    question_23: int
+    question_24: int
+    question_25: int
 
 class RoommateMatchingResponse(BaseModel):
     user_list: Dict[int, float]
@@ -81,7 +94,7 @@ async def custom_http_exception_handler(request, exc):
 async def save_responses(request: SaveResponsesRequest):
     try:
         # 유저 응답을 저장하는 함수가 있다고 가정
-        from save_responses_function import save_user_responses
+        from services.save_responses import save_user_responses
         save_user_responses(request)
         return SaveResponsesSuccess(
             status="success",
@@ -97,7 +110,7 @@ async def save_responses(request: SaveResponsesRequest):
 async def get_responses(userid: int = Query(...)):
     try:
         # 유저 응답을 가져오는 함수가 있다고 가정
-        from get_responses_function import get_user_responses
+        from services.save_responses import get_user_responses
         response_data = get_user_responses(userid)
         if response_data is None:
             raise HTTPException(status_code=400, detail="입력한 userid를 확인해주세요.")
@@ -116,7 +129,7 @@ async def roommate_matching(userid: int = Query(...), core_questions: List[int] 
             raise HTTPException(status_code=400, detail="core_questions를 확인해주세요.")
 
         # 룸메이트 매칭을 수행하는 함수가 있다고 가정
-        from roommate_matching_function import roommate_matching_function
+        from services.save_responses import roommate_matching_function
         user_list = roommate_matching_function(userid, core_questions)
         if not user_list:
             raise HTTPException(status_code=400, detail="입력한 userid를 확인해주세요.")
